@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace domain.Models
 {
-    public class Post : EntityBase
+    public class Post : BaseEntity
     {
         public Post(string title, string description, string author, DateTime datePublish, string image, Category category)
         {
@@ -21,22 +21,13 @@ namespace domain.Models
             {
                 throw new ArgumentException("Autor é inválido");
             }
-            if(string.IsNullOrEmpty(image))
-            {
-                throw new ArgumentException("");
-            }
-            if(category == null)
-            {
-                throw new ArgumentException();
-            }
-             
 
             Title = title;
             Description = description;
             Author = author;
             DatePublish = datePublish;
             Image = image;
-            Category = category;
+            Category = category ?? throw new ArgumentException("Categoria é inválido");
         }
 
         public string Title { get; }
